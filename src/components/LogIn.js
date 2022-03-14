@@ -1,5 +1,7 @@
 import React from 'react';
 import validation from '../utils/validation';
+import { loginURL } from '../utils/constant';
+import { withRouter } from 'react-router';
 
 class LogIn extends React.Component {
   state = {
@@ -12,14 +14,49 @@ class LogIn extends React.Component {
   };
 
   handleChange = (event) => {
-    event.target.value = '';
     let { name, value } = event.target;
     let errors = { ...this.state.errors };
     validation(errors, name, value);
     this.setState({
-      name: [value],
+      [name]: value,
       errors,
     });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { email, password } = this.state;
+    fetch(loginURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user: { email, password } }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        }
+        return res.json();
+      })
+      .then(({ user }) => {
+        this.props.updateUser(user);
+
+        this.props.history.push('/');
+      })
+      .catch((errors) =>
+        this.setState((prevState) => {
+          return {
+            ...prevState,
+            error: {
+              ...prevState.errors,
+              email: 'Email or password is not correct',
+            },
+          };
+        })
+      );
   };
 
   render() {
@@ -54,4 +91,4 @@ class LogIn extends React.Component {
   }
 }
 
-export default LogIn;
+export default withRouter(LogIn);

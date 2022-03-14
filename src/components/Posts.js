@@ -4,7 +4,7 @@ import Loader from './Loader';
 import Post from './Post';
 
 function Posts(props) {
-  const { articles, error } = props;
+  let { articles, error } = props;
   console.log(articles);
   if (error) {
     return <p>{error}</p>;
