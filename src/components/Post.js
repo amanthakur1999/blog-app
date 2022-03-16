@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import moment from 'moment';
 
 function Post(props) {
   const { author, createdAt, title, description, slug, favoritesCount } = props;
@@ -15,7 +16,9 @@ function Post(props) {
               <Link to="/profile">
                 <p>{author.username}</p>
               </Link>
-              <time dateTime="">{createdAt}</time>
+              <time dateTime="">
+                {moment(createdAt).format('ddd MMM D YYYY')}
+              </time>
             </div>
           </div>
           <div>

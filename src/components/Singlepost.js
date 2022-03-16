@@ -1,10 +1,12 @@
 import React from 'react';
-
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { articleURL } from '../utils/constant';
 import Loader from './Loader';
+import moment from 'moment';
 class Singlepost extends React.Component {
   state = {
-    article: '',
+    article: [],
     error: '',
   };
 
@@ -30,11 +32,10 @@ class Singlepost extends React.Component {
       });
   }
   render() {
-    // const { author } = this.state.article;
-    const { article, error } = this.state;
-    // let image = article.author.image;
+    let { title, createdAt, description, body, tagList, error } =
+      this.state.article;
+    console.log(tagList);
 
-    console.log(article);
     if (error) {
       return <p>{error}</p>;
     }
@@ -45,21 +46,46 @@ class Singlepost extends React.Component {
       <>
         <section>
           <div className="">
-            <h1>{article.title}</h1>
+            <h1>{title}</h1>
             <div className="flex items-center">
-              {/* <img className="" src={image} alt={article.username} /> */}
+              <img
+                className=""
+                src={this.props.user.image}
+                alt={this.props.user.username}
+              />
               <div>
-                <h4 className="">{article.title}</h4>
-                <time dateTime="">{article.createdAt}</time>
+                <h2>{this.props.user.username}</h2>
+                <h4 className="">{title}</h4>
+                <time dateTime="">
+                  {moment(createdAt).format('ddd MMM D YYYY')}
+                </time>
               </div>
             </div>
           </div>
-          <p>{article.description}</p>
-          <p>{article.body}</p>
+          <h3>{description}</h3>
+          <p>{body}</p>
+
+          {/* <div>
+            {tagList.map((tag) => (
+              <span key={tag}>{tag}</span>
+            ))}
+          </div> */}
         </section>
+        {this.props.user === null ? (
+          <footer>
+            <div>
+              <p>
+                <Link to="/signup">Sign up</Link> or{' '}
+                <Link to="/login"> Log in</Link>
+              </p>
+            </div>
+          </footer>
+        ) : (
+          ''
+        )}
       </>
     );
   }
 }
 
-export default Singlepost;
+export default withRouter(Singlepost);
