@@ -4,7 +4,7 @@ import Loader from './Loader';
 
 class Sidebar extends React.Component {
   state = {
-    tags: [],
+    tags: '',
     error: '',
   };
   componentDidMount() {

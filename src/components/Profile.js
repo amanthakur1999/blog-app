@@ -2,6 +2,7 @@ import React from 'react';
 import { articleURL } from '../utils/constant';
 import Pagination from './Pagination';
 import Posts from './Posts';
+import { withRouter } from 'react-router';
 import ProfileBanner from './ProfileBanner';
 
 class Profile extends React.Component {
@@ -11,7 +12,8 @@ class Profile extends React.Component {
   };
 
   FetchData = () => {
-    fetch(articleURL + `/?${this.state.activeTab}=${this.props.user.username}`)
+    const slug = this.props.match.params.username;
+    fetch(articleURL + `/?${this.state.activeTab}=${slug}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`can not fetch deta for specific user`);
@@ -44,12 +46,13 @@ class Profile extends React.Component {
 
   render() {
     const { activeTab } = this.setState;
-    const { user } = this.props;
+    const slug = this.props.match.params.username;
+    console.log(slug, 'hello');
 
     return (
       <>
         <section>
-          <ProfileBanner user={user} />
+          <ProfileBanner username={slug} user={this.props.user} />
           <div>
             <div>
               <button
@@ -73,4 +76,4 @@ class Profile extends React.Component {
     );
   }
 }
-export default Profile;
+export default withRouter(Profile);

@@ -13,7 +13,7 @@ function Post(props) {
               <img src={author.image || 'hello'} alt={author.username} />
             </Link>
             <div>
-              <Link to="/profile">
+              <Link to={`/profile/${author.username}`}>
                 <p>{author.username}</p>
               </Link>
               <time dateTime="">

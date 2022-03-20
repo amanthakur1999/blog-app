@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { articleURL } from '../utils/constant';
 import Loader from './Loader';
 import moment from 'moment';
+import AddComment from './AddComment';
 class Singlepost extends React.Component {
   state = {
-    article: [],
+    article: '',
     error: '',
   };
 
@@ -31,45 +32,74 @@ class Singlepost extends React.Component {
         this.setState({ error: 'Not able to  Fetching article' });
       });
   }
-  render() {
-    let { title, createdAt, description, body, tagList, error } =
-      this.state.article;
-    console.log(tagList);
 
-    if (error) {
-      return <p>{error}</p>;
+  handelDelete = (slug) => {
+    fetch(articleURL + '/' + slug, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Token ${this.props.user.token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return Promise.reject('Unable to delete!');
+        }
+      })
+      .then((data) => {
+        this.props.history.push('/');
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
+  };
+
+  render() {
+    if (this.state.error) {
+      return <p>{this.state.error}</p>;
     }
-    if (!articleURL) {
+    if (!this.state.article) {
       return <Loader />;
     }
+    let { author, title, createdAt, description, body, tagList, slug } =
+      this.state.article;
     return (
       <>
         <section>
           <div className="">
             <h1>{title}</h1>
             <div className="flex items-center">
-              <img
-                className=""
-                src={this.props.user.image}
-                alt={this.props.user.username}
-              />
+              <img className="" src={author.image} alt={author.username} />
               <div>
-                <h2>{this.props.user.username}</h2>
+                <h2>{author.username}</h2>
                 <h4 className="">{title}</h4>
                 <time dateTime="">
                   {moment(createdAt).format('ddd MMM D YYYY')}
                 </time>
               </div>
+              {this.props.user &&
+              this.props.user.username === author.username ? (
+                <div>
+                  <button>
+                    <Link to={`/editArticle/${slug}`}>Edit Article</Link>
+                  </button>
+                  <button onClick={() => this.handelDelete(slug)}>
+                    Detele Article
+                  </button>
+                </div>
+              ) : (
+                ''
+              )}
             </div>
           </div>
           <h3>{description}</h3>
           <p>{body}</p>
 
-          {/* <div>
+          <div>
             {tagList.map((tag) => (
               <span key={tag}>{tag}</span>
             ))}
-          </div> */}
+          </div>
         </section>
         {this.props.user === null ? (
           <footer>
@@ -77,11 +107,12 @@ class Singlepost extends React.Component {
               <p>
                 <Link to="/signup">Sign up</Link> or{' '}
                 <Link to="/login"> Log in</Link>
+                or add to comments on this article
               </p>
             </div>
           </footer>
         ) : (
-          ''
+          <AddComment slug={slug} user={this.props.user} />
         )}
       </>
     );

@@ -11,6 +11,7 @@ import FullPageSpiner from './FullPageSpiner';
 import NewPost from './NewPost';
 import Setting from './Setting';
 import Profile from './Profile';
+import EditArticle from './EditArticle';
 
 class App extends React.Component {
   state = {
@@ -87,11 +88,14 @@ function AuthenticatedApp(props) {
       <Route exact path="/setting">
         <Setting user={props.user} updateUser={props.updateUser} />
       </Route>
-      <Route exact path="/profile">
+      <Route exact path="/profile/:username">
         <Profile user={props.user} />
       </Route>
       <Route path="/article/:slug">
         <Singlepost user={props.user} />
+      </Route>
+      <Route path="/editArticle/:slug">
+        <EditArticle user={props.user} />
       </Route>
       <Route path="*">
         <NoMatch />
