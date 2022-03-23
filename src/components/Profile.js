@@ -1,14 +1,15 @@
 import React from 'react';
 import { articleURL } from '../utils/constant';
-import Pagination from './Pagination';
+// import Pagination from './Pagination';
 import Posts from './Posts';
 import { withRouter } from 'react-router';
 import ProfileBanner from './ProfileBanner';
+import Loader from './Loader';
 
 class Profile extends React.Component {
   state = {
     activeTab: 'author',
-    articles: [],
+    articles: null,
   };
 
   FetchData = () => {
@@ -47,28 +48,33 @@ class Profile extends React.Component {
   render() {
     const { activeTab } = this.setState;
     const slug = this.props.match.params.username;
-    console.log(slug, 'hello');
+    if (!this.state.articles) {
+      <Loader />;
+    }
 
     return (
       <>
         <section>
           <ProfileBanner username={slug} user={this.props.user} />
-          <div>
-            <div>
-              <button
-                className={activeTab === 'author' && 'active'}
-                onClick={() => this.handelActive('author')}
-              >
-                My Article
-              </button>
-              <button
-                className={activeTab === 'favorited' && 'active'}
-                onClick={() => this.handelActive('favorited')}
-              >
-                Favorited Article
-              </button>
+          <div className="container">
+            <div className="profile">
+              <div className="buttons-div">
+                <button
+                  onClick={() => this.handelActive('author')}
+                  className={activeTab === 'author' && 'active'}
+                >
+                  My Article
+                </button>
+                <button
+                  onClick={() => this.handelActive('favorited')}
+                  className={activeTab === 'favorited' && 'active'}
+                >
+                  Favorited Article
+                </button>
+              </div>
+
               <Posts articles={this.state.articles} />
-              <Pagination />
+              {/* <Pagination /> */}
             </div>
           </div>
         </section>

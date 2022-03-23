@@ -1,0 +1,48 @@
+.singleArticle {
+  padding: 2rem;
+}
+
+.singleArticle h1 {
+  font-size: 2rem;
+}
+
+.single-img {
+  width: 10%;
+}
+
+.single-img img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.time {
+  padding-left: 1rem;
+}
+
+.detail-article {
+  padding: 3rem;
+  border-bottom: 1px solid #a1a1a1;
+}
+
+.detail-article h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 1rem 0;
+}
+
+.detail-article p {
+  line-height: 1.2;
+}
+
+.tags {
+  margin-top: 2rem;
+  text-align: end;
+}
+
+.tags span {
+  margin-right: 1rem;
+  border: 1px solid #8f8e8e;
+  padding: 0.2rem 1rem;
+  border-radius: 5px;
+}
+/*# sourceMappingURL=singleArticle.css.map */

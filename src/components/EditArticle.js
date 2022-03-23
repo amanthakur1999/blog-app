@@ -91,8 +91,8 @@ class EditArticle extends React.Component {
     return (
       <>
         <div>
-          <h2>Update Article</h2>
-          <form action="">
+          <form action="" className="form-control">
+            <h3>Update Article</h3>
             <input
               type="text"
               name="title"
@@ -126,11 +126,13 @@ class EditArticle extends React.Component {
               value={tagList}
             />
             <div>
-              <input
+              <button
+                className="publish-btn"
                 type="submit"
-                value="Update Article"
                 onClick={this.handleSubmit}
-              />
+              >
+                Update Article
+              </button>
             </div>
           </form>
         </div>

@@ -7,7 +7,7 @@ import FeedNav from './FeedNav';
 
 class Home extends React.Component {
   state = {
-    articles: [],
+    articles: '',
     error: '',
     articleCount: 0,
     articleperpage: 10,
@@ -82,15 +82,21 @@ class Home extends React.Component {
     console.log(articleCount);
     return (
       <>
-        <FeedNav activeTab={activeTab} deleteTab={this.deleteTab} />
-        <Posts articles={articles} error={error} />
-        <Pagination
-          articleCount={articleCount}
-          articleperpage={articleperpage}
-          activePage={activePage}
-          updateCurrentPageIndex={this.updateCurrentPageIndex}
-        />
-        <Sidebar addTab={this.addTab} />
+        <div className="container  flex-sb">
+          <div className="flex-70">
+            <FeedNav activeTab={activeTab} deleteTab={this.deleteTab} />
+            <Posts articles={articles} error={error} />
+            <Pagination
+              articleCount={articleCount}
+              articleperpage={articleperpage}
+              activePage={activePage}
+              updateCurrentPageIndex={this.updateCurrentPageIndex}
+            />
+          </div>
+          <div className="flex-25">
+            <Sidebar addTab={this.addTab} />
+          </div>
+        </div>
       </>
     );
   }

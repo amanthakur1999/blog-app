@@ -62,7 +62,8 @@ class NewPost extends React.Component {
     return (
       <>
         <div>
-          <form action="">
+          <form action="" className="form-control">
+            <h3>Add Your Article</h3>
             <input
               type="text"
               name="title"
@@ -96,11 +97,13 @@ class NewPost extends React.Component {
               value={tagList}
             />
             <div>
-              <input
+              <button
+                className="publish-btn"
                 type="submit"
-                value="Publish Article"
                 onClick={this.handleSubmit}
-              />
+              >
+                Publish Article
+              </button>
             </div>
           </form>
         </div>

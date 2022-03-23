@@ -39,38 +39,33 @@ class ProfileBanner extends React.Component {
       });
   }
 
-  // follow = () => {
-  //   let { username } = this.props;
-  //   fetch(ROOT_URL + `profiles/${username}/follow`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       authorization: `Token ${this.props.user.token}`,
-  //     },
-  //   }).then((res) => {
-  //     if (!res.ok) {
-  //     }
-  //   });
-  // };
-
   render() {
     if (!this.state.profile) return <Loader />;
-    let { username, image } = this.state.profile;
+    let { username, image, bio } = this.state.profile;
     return (
       <>
-        <section>
-          <div>
-            <img src={image || './images/Smiley.jpg'} alt={username} />
-            <h2>{username}</h2>
-
+        <section className="containe">
+          <div className="banner">
+            <div className="banner-img">
+              <img src={image || './images/Smiley.jpg'} alt={username} />
+              <h2>{username}</h2>
+              <h3>{bio}</h3>
+            </div>
             <div>
               {this.props.user.username === username ? (
-                <Link to="/setting">Edit profile setting</Link>
+                <button className="button-1">
+                  <Link
+                    to="/setting"
+                    style={{ textDecoration: 'none', color: 'white' }}
+                  >
+                    Edit profile setting
+                  </Link>
+                </button>
               ) : (
-                <p>
+                <button className="button-1">
                   {' '}
-                  + Follow<span>{username}</span>
-                </p>
+                  + Follow <span>{username}</span>
+                </button>
               )}
             </div>
           </div>
@@ -80,23 +75,4 @@ class ProfileBanner extends React.Component {
   }
 }
 
-// function ProfileBanner(props) {
-//   let { username } = props.user;
-//   return (
-//     <>
-//       <section>
-//         <div>
-//           {/* <img src={image || './images/Smiley.jpg'} alt={username} /> */}
-//           <h2>{username}</h2>
-//           {/* <p>{bio}</p> */}
-//           <div>
-//             <p>
-//               + Follow<span>{username}</span>
-//             </p>
-//           </div>
-//         </div>
-//       </section>
-//     </>
-//   );
-// }
 export default withRouter(ProfileBanner);

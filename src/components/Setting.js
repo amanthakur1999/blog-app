@@ -68,7 +68,7 @@ class Setting extends React.Component {
       .then(({ user }) => {
         console.log(user);
         this.props.updateUser(user);
-        this.props.history.push('/profile');
+        this.props.history.push(`/profile/${this.props.user.username}`);
       });
   };
 
@@ -77,8 +77,8 @@ class Setting extends React.Component {
     return (
       <>
         <section>
-          <h2>Your Setting</h2>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} className="form-control">
+            <h2>Your Setting</h2>
             <input
               onChange={this.handleChange}
               type="text"
@@ -113,12 +113,14 @@ class Setting extends React.Component {
               type="password"
               value={password}
               name="password"
+              placeholder="password"
             />
-            <button type="submit">Update Setting</button>
+            <button className="publish-btn" type="submit">
+              Update Setting
+            </button>
           </form>
-
-          <div>
-            <button onClick={this.handleLogout}>or click here to logout</button>
+          <div className="logout">
+            <button onClick={this.handleLogout}>Click To Logout</button>
           </div>
         </section>
       </>

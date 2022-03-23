@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 function Header(props) {
   return (
@@ -6,8 +6,15 @@ function Header(props) {
       <header className="header">
         <div className="container">
           <nav className="flex-sb">
-            <h1>Conduit</h1>
-            {props.isLoggedIn ? <AuthHeader /> : <NonAuthHeader />}
+            <Link style={{ textDecoration: 'none' }} to="/">
+              <h1>BLOG APP</h1>
+            </Link>
+
+            {props.isLoggedIn ? (
+              <AuthHeader user={props.user} />
+            ) : (
+              <NonAuthHeader />
+            )}
           </nav>
         </div>
       </header>
@@ -44,7 +51,8 @@ function NonAuthHeader() {
     </ul>
   );
 }
-function AuthHeader() {
+function AuthHeader(props) {
+  let { username } = props.user;
   return (
     <ul className="flex">
       <NavLink
@@ -68,12 +76,14 @@ function AuthHeader() {
         activeclassname="active"
         to="/setting"
       >
-        <li>Settings</li>
+        <li>
+          <i className="fa-solid fa-gear"></i>Settings
+        </li>
       </NavLink>
       <NavLink
         style={{ textDecoration: 'none' }}
         activeclassname="active"
-        to="/profile"
+        to={`/profile/${username}`}
       >
         <li>Profile</li>
       </NavLink>

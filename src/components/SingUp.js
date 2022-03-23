@@ -53,9 +53,9 @@ class SignUp extends React.Component {
     return (
       <>
         <section>
-          <h2>Sign Up</h2>
-          <button>Have an account?</button>
-          <form onSubmit={this.handelSubmit}>
+          <form className="form-control signin" onSubmit={this.handelSubmit}>
+            <h2>Sign Up</h2>
+            <p>Have an account?</p>
             <input
               onChange={this.handleChange}
               type="text"
@@ -63,7 +63,7 @@ class SignUp extends React.Component {
               placeholder="Username"
               value={username}
             />
-            <span>{errors.username}</span>
+            <span className="color-red">{errors.username}</span>
             <input
               onChange={this.handleChange}
               type="email"
@@ -71,7 +71,7 @@ class SignUp extends React.Component {
               placeholder="Email"
               value={email}
             />
-            <span className="text-red-500">{errors.email}</span>
+            <span className="color-red">{errors.email}</span>
             <input
               onChange={this.handleChange}
               type="password"
@@ -79,13 +79,16 @@ class SignUp extends React.Component {
               placeholder="Password"
               value={password}
             />
-            <span>{errors.password}</span>
-            <button
-              type="submit"
-              disabled={errors.username || errors.email || errors.password}
-            >
-              Sign Up
-            </button>
+            <span className="color-red">{errors.password}</span>
+            <div>
+              <button
+                className="login-btn"
+                type="submit"
+                disabled={errors.username || errors.email || errors.password}
+              >
+                Sign Up
+              </button>
+            </div>
           </form>
         </section>
       </>

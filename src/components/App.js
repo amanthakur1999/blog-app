@@ -80,7 +80,7 @@ function AuthenticatedApp(props) {
   return (
     <Switch>
       <Route exact path="/">
-        <Home />
+        <Home user={props.user} />
       </Route>
       <Route exact path="/new-post">
         <NewPost user={props.user} />

@@ -1,13 +1,10 @@
 import React from 'react';
-// import FullPageSpiner from './FullPageSpiner';
-// import { articleURL } from '../utils/constant';
 import Loader from './Loader';
 import Post from './Post';
 
 function Posts(props) {
   let { articles, error } = props;
   console.log(articles);
-
   if (!articles) {
     return <Loader />;
   }

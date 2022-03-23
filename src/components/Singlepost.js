@@ -65,25 +65,38 @@ class Singlepost extends React.Component {
       this.state.article;
     return (
       <>
-        <section>
-          <div className="">
+        <section className="container">
+          <div className="singleArticle">
             <h1>{title}</h1>
-            <div className="flex items-center">
-              <img className="" src={author.image} alt={author.username} />
-              <div>
+            <div className="flex align-center">
+              <div className="single-img">
+                <img className="" src={author.image} alt={author.username} />
+              </div>
+
+              <div className="time">
                 <h2>{author.username}</h2>
-                <h4 className="">{title}</h4>
                 <time dateTime="">
                   {moment(createdAt).format('ddd MMM D YYYY')}
                 </time>
               </div>
               {this.props.user &&
               this.props.user.username === author.username ? (
-                <div>
-                  <button>
-                    <Link to={`/editArticle/${slug}`}>Edit Article</Link>
+                <div className="edit-delete-btns">
+                  <button className=" button-2 edit-btn">
+                    <Link
+                      style={{
+                        textDecoration: 'none',
+                        color: 'rgb(190, 190, 190)',
+                      }}
+                      to={`/editArticle/${slug}`}
+                    >
+                      Edit Article
+                    </Link>
                   </button>
-                  <button onClick={() => this.handelDelete(slug)}>
+                  <button
+                    className="button-2 delete-btn"
+                    onClick={() => this.handelDelete(slug)}
+                  >
                     Detele Article
                   </button>
                 </div>
@@ -92,28 +105,32 @@ class Singlepost extends React.Component {
               )}
             </div>
           </div>
-          <h3>{description}</h3>
-          <p>{body}</p>
+          <div className="detail-article">
+            <h3>{description}</h3>
+            <p>{body}</p>
+            <div className="tags">
+              {tagList.map((tag) => (
+                <span key={tag}>#{tag}</span>
+              ))}
+            </div>
+          </div>
 
           <div>
-            {tagList.map((tag) => (
-              <span key={tag}>{tag}</span>
-            ))}
+            {this.props.user === null ? (
+              <footer>
+                <div>
+                  <p>
+                    <Link to="/signup">Sign up</Link> or{' '}
+                    <Link to="/login"> Log in</Link>
+                    or add to comments on this article
+                  </p>
+                </div>
+              </footer>
+            ) : (
+              <AddComment slug={slug} user={this.props.user} />
+            )}
           </div>
         </section>
-        {this.props.user === null ? (
-          <footer>
-            <div>
-              <p>
-                <Link to="/signup">Sign up</Link> or{' '}
-                <Link to="/login"> Log in</Link>
-                or add to comments on this article
-              </p>
-            </div>
-          </footer>
-        ) : (
-          <AddComment slug={slug} user={this.props.user} />
-        )}
       </>
     );
   }

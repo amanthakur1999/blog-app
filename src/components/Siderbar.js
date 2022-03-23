@@ -17,7 +17,9 @@ class Sidebar extends React.Component {
       })
       .then(({ tags }) => {
         console.log(tags);
-        this.setState({ tags });
+        if (tags.length > 1) {
+          this.setState({ tags });
+        }
       })
       .catch((err) => {
         this.setState({ error: 'Not able to  Fetching tags' });
@@ -33,12 +35,16 @@ class Sidebar extends React.Component {
     }
     return (
       <>
-        <aside>
+        <aside className="aside">
           <h3>Popular Tag</h3>
           {tags.map((tag) => (
-            <span key={tag} onClick={() => this.props.addTab(tag)}>
+            <button
+              className="button"
+              key={tag}
+              onClick={() => this.props.addTab(tag)}
+            >
               {tag}
-            </span>
+            </button>
           ))}
         </aside>
       </>

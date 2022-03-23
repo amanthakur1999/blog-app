@@ -9,3 +9,16 @@
 .align-center {
   align-items: center;
 }
+.flex-70 {
+  flex: 0 1 65%;
+}
+.flex-25 {
+  flex: 0 1 25%;
+}
+.flex-wrap {
+  // display: flex;
+  flex-wrap: wrap;
+}
+.align-center {
+  align-items: center;
+}

@@ -63,9 +63,9 @@ class LogIn extends React.Component {
     let { email, password, errors } = this.state;
     return (
       <section>
-        <h2>Sign In</h2>
-        <button>Need an account?</button>
-        <form onSubmit={this.handleSubmit}>
+        <form className="form-control signin" onSubmit={this.handleSubmit}>
+          <h2>Sign In</h2>
+          <p>Need an account?</p>
           <input
             onChange={this.handleChange}
             type="text"
@@ -73,7 +73,7 @@ class LogIn extends React.Component {
             placeholder="Email"
             value={email}
           />
-          <span className="text-red-500">{errors.email}</span>
+          <span className="color-red">{errors.email}</span>
           <input
             onChange={this.handleChange}
             name="password"
@@ -81,10 +81,16 @@ class LogIn extends React.Component {
             placeholder="Password"
             value={password}
           />
-          <span className="text-red-500 block">{errors.password}</span>
-          <button type="submit" disabled={errors.email || errors.password}>
-            Sign In
-          </button>
+          <span className="color-red block">{errors.password}</span>
+          <div>
+            <button
+              className="login-btn"
+              type="submit"
+              disabled={errors.email || errors.password}
+            >
+              Sign In
+            </button>
+          </div>
         </form>
       </section>
     );

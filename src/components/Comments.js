@@ -1,11 +1,11 @@
 import React from 'react';
 import { articleURL } from '../utils/constant';
 import Comment from './Comment';
-import Loader from './Loader';
+// import Loader from './Loader';
 
 class Comments extends React.Component {
   componentDidMount() {
-    // this.props.fetchComment();
+    this.props.fetchComment();
   }
 
   handelDelete = (id) => {
@@ -20,7 +20,7 @@ class Comments extends React.Component {
 
   render() {
     if (!this.props.state.comment) {
-      return <h2>Comment</h2>;
+      return <h2> No Comment Added</h2>;
     }
     return (
       <>

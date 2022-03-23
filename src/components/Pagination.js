@@ -12,7 +12,7 @@ function Pagination(props) {
   console.log(pageArr);
   return (
     <>
-      <div>
+      <div className="pagination flex align-center">
         <div>
           <p
             onClick={() =>
@@ -29,7 +29,11 @@ function Pagination(props) {
                 updateCurrentPageIndex(page);
               }}
               key={page}
-              className={`${activePage === page ? 'active' : ''}`}
+              className={`${
+                activePage === page
+                  ? 'active button-pagination'
+                  : 'button-pagination'
+              }`}
             >
               {page}
             </button>
