@@ -196,7 +196,7 @@ body {
 }
 
 .active {
-  color: #8b0505;
+  color: #1fa11f;
 }
 
 .header {
@@ -340,6 +340,7 @@ body {
 }
 
 .pagination .active {
+  border: none;
   color: white;
   background-color: #067406;
 }
